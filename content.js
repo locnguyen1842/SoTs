@@ -39,9 +39,8 @@ chrome.runtime.onMessage.addListener(
             let site_obj = get_site_info();
             if(site_obj.is_popular_site) {
                 sots = popular_site_sots_generator(site_obj,request.selected_text);
-            }else {
-                sots = 'http://loco-co.com';
             }
+            
             sendResponse({"open_new_tab": true, "url": sots})
         }
     }
