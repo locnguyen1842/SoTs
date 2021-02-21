@@ -1,6 +1,0 @@
-{
-  "youtube.com": "https://www.youtube.com/results?search_query=%s",
-  "facebook.com": "https://www.facebook.com/search/?q=%s",
-  "instagram.com": "https://www.instagram.com/search?",
-  "stackoverflow.com": "https://stackoverflow.com/search?q=%s"
-}

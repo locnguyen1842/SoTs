@@ -3,7 +3,10 @@ let extensionMenu = {
     contexts: ["selection"],
     title: 'Search on This site',
 }
-const resourceSite = "https://raw.githubusercontent.com/locnguyen1842/SoTs/master/resources/sites.json"
+
+let now = Date.now()
+
+const resource = 'https://gist.githubusercontent.com/locnguyen1842/ef92ec60a6cc748073b154f5c467faa5/raw/sites.json?cachebust=' + now
 
 chrome.contextMenus.create(extensionMenu);
 
@@ -12,7 +15,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 const initSites = async () => {
-    chrome.storage.local.set({sotsSites: await getResource(resourceSite), cachedAt: Date.now()})
+    chrome.storage.local.set({sotsSites: await getResource(resource), cachedAt: now})
 }
 
 chrome.contextMenus.onClicked.addListener(function(info,tab) {
