@@ -1,7 +1,7 @@
 {
     "name": "Search on This Site",
     "version": "1.0",
-    "description": "Search selected text on current site",
+    "description": "Search the selected text on the current site",
     "author" : "Loc Nguyen",
     "background": {
         "service_worker": "background.js"
@@ -26,12 +26,10 @@
         }
     ],
     "permissions": [
-        "activeTab",
+        "tabs",
         "contextMenus",
         "search",
         "storage"
-    ],
-    "web_accessible_resources": [
     ],
     "manifest_version": 3
   }
