@@ -1,47 +1,46 @@
 
-function get_site_info () {
+function getSiteInfo () {
     
-    let popular_site = [
-        {hostname: 'youtube.com', search_path: 'results', search_param: 'search_query'},
-        {hostname: 'facebook.com', search_path: 'search', search_param: 'q'},
-        {hostname: 'instagram.com', search_path: 'explore/tags', search_param: ''},
-        {hostname: 'stackoverflow.com', search_path: 'search', search_param: 'q'},
+    let popularSite = [
+        {hostname: 'youtube.com', searchPath: 'results', searchParam: 'searchQuery'},
+        {hostname: 'facebook.com', searchPath: 'search', searchParam: 'q'},
+        {hostname: 'instagram.com', searchPath: 'explore/tags', searchParam: ''},
+        {hostname: 'stackoverflow.com', searchPath: 'search', searchParam: 'q'},
     ];
-    let current_hostname = handle_hostname(window.location.hostname);
+    let currentHostname = handleHostname(window.location.hostname);
 
-    let site_obj = popular_site.find( site => site.hostname === current_hostname);
+    let siteObj = popularSite.find( site => site.hostname === currentHostname);
 
-    if(site_obj !== undefined) {
-        site_obj.is_popular_site = true;
-        return site_obj;
+    if(siteObj !== undefined) {
+        siteObj.isPopularSite = true;
+        return siteObj;
     }
     return false;
 }
 
-function popular_site_sots_generator(site_obj,selected_text = 'sots') {
-
-    let site_param = site_obj.search_param !== '' ? `?${site_obj.search_param}=${selected_text}` : `/${selected_text}`;
-    return `http://${site_obj.hostname}/${site_obj.search_path}${site_param}`
+function popularSiteSotsGenerator(siteObj,selectedText = 'sots') {
+    let siteParam = siteObj.searchParam !== '' ? `?${siteObj.searchParam}=${selectedText}` : `/${selectedText}`;
+    return `http://${siteObj.hostname}/${siteObj.searchPath}${siteParam}`
 }
 
-function handle_hostname(hostname) {
-    splitted_hostname = hostname.split('.');
-    if(splitted_hostname[0] === 'www') {
-        splitted_hostname.shift()
+function handleHostname(hostname) {
+    splittedHostname = hostname.split('.');
+    if(splittedHostname[0] === 'www') {
+        splittedHostname.shift()
     }
-    return splitted_hostname.join('.')
+    return splittedHostname.join('.')
 }
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        if(request.clicked_sots) {
-            let sots = `http://www.google.com/search?q=${request.selected_text}`;
-            let site_obj = get_site_info();
-            if(site_obj.is_popular_site) {
-                sots = popular_site_sots_generator(site_obj,request.selected_text);
+        if(request.clickedSots) {
+            let sots = `http://www.google.com/search?q=${request.selectedText}`;
+            let siteObj = getSiteInfo();
+            if(siteObj.isPopularSite) {
+                sots = popularSiteSotsGenerator(siteObj,request.selectedText);
             }
             
-            sendResponse({"open_new_tab": true, "url": sots})
+            sendResponse({"openNewTab": true, "url": sots})
         }
     }
 );
