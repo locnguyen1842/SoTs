@@ -4,9 +4,9 @@
     "description": "Search selected text on current site",
     "author" : "Loc Nguyen",
     "background": {
-        "scripts": ["background.js"]
+        "service_worker": "background.js"
     },
-    "page_action": {
+    "action": {
         "default_icon": {
             "16": "images/search16.png",
             "32": "images/search32.png",
@@ -21,9 +21,17 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["content.js"]
+            "js": ["content.js"],
+            "run_at": "document_end"
         }
     ],
-    "permissions": ["activeTab","contextMenus"],
-    "manifest_version": 2
+    "permissions": [
+        "activeTab",
+        "contextMenus",
+        "search",
+        "storage"
+    ],
+    "web_accessible_resources": [
+    ],
+    "manifest_version": 3
   }
